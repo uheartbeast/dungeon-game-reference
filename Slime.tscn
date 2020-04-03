@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Slime.png" type="Texture" id=1]
+[ext_resource path="res://CollisionCheck.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Slime.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 6 )
+
+[node name="Slime" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 3 )
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( 8, 8 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1, -3 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="CollisionCheck" parent="." instance=ExtResource( 2 )]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="TargetSprite" type="ColorRect" parent="."]
+margin_left = 16.0
+margin_right = 32.0
+margin_bottom = 16.0
+color = Color( 1, 0, 0, 0.215686 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
